@@ -203,3 +203,17 @@ def copyIfFound(String name, String target=null, classLoader = project.buildscri
 		return new File(newFilename)
 	}
 }
+
+def addSourceFolderIfExists(String folder) {
+	if (new File(folder).exists()) {
+		logger.lifecycle("Detected ${folder}, adding it as source folder")
+		sourceSets.main.java.srcDirs += [folder]
+	}
+}
+
+def addTestSourceFolderIfExists(String folder) {
+	if (new File(folder).exists()) {
+		logger.lifecycle("Detected ${folder}, adding it as test source folder")
+		sourceSets.test.java.srcDirs += [folder]
+	}
+}

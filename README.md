@@ -8,8 +8,6 @@ Defines the Java conventions I use in my projects.
 - Plugins, which ones and configuration
 - JVM Args
 
-- `./gradlew build`
-
 ```groovy
 plugins {
     id 'se.bjurr.gradle.java-convention' version 'X'
