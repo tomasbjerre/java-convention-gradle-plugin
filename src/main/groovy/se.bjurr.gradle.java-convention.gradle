@@ -171,7 +171,7 @@ task violations(type: se.bjurr.violations.gradle.plugin.ViolationsTask) {
 
 check.finalizedBy violations
 
-check.dependsOn spotlessApply
+processResources.dependsOn spotlessApply
 
 spotless {
 	java {
@@ -198,6 +198,19 @@ def findResource(String name, classLoader = project.buildscript.classLoader) {
 		return null;
 	}
 	return resource
+}
+
+def copyResourceToFile(URL resource, String copyTo, classLoader = project.buildscript.classLoader) {
+	logger.lifecycle("Copying ${resource} to ${copyTo}")
+	def content = resource.text
+	def parentFile = new File(copyTo).getParentFile()
+	if (parentFile != null) {
+		parentFile.mkdirs()
+	}
+	FileWriter fw = new FileWriter(copyTo)
+	BufferedWriter bw = new BufferedWriter(fw)
+	bw.write(content)
+	bw.close()
 }
 
 def copyIfFound(String name, String target=null, classLoader = project.buildscript.classLoader) {
