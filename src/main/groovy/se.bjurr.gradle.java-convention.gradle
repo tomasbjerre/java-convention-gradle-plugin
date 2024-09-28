@@ -180,8 +180,14 @@ spotless {
 		targetExclude effectiveConfig.formattingExcludedPatterns
 	}
 	groovyGradle {
-		target '*.gradle'
+		target '*.gradle', '**/*.gradle'
 		greclipse()
+	}
+	json {
+		target '*.json', '**/*.json'
+		gson()
+				.indentWithSpaces(2)
+				.version('2.8.1')
 	}
 }
 
