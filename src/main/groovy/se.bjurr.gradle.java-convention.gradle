@@ -1,0 +1,205 @@
+plugins {
+	id "com.github.spotbugs"
+	id "se.bjurr.violations.violations-gradle-plugin"
+	id "pmd"
+	id 'java-library'
+	id 'eclipse'
+	id "com.diffplug.spotless"
+	id 'groovy'
+}
+
+repositories {
+	mavenLocal()
+	mavenCentral()
+}
+
+def propertyFile = file("$projectDir/gradle.properties")
+def gradleProps = new Properties()
+propertyFile.withReader { gradleProps.load(it) }
+
+// ---- start of default config ----
+def givenConfig = [
+	// mainClass: se.bjurr.violations.main.Main
+	mainClass: gradleProps.getProperty("mainClass", ""),
+	sourceCompatibility: gradleProps.getProperty("sourceCompatibility", "17"),
+	targetCompatibility: gradleProps.getProperty("targetCompatibility", "17"),
+	maxViolations: gradleProps.getProperty("maxViolations", "0"),
+	formattingExcludedPatterns: gradleProps.getProperty("formattingExcludedPatterns", "**/gen/**,**/generated/**"),
+	generatedSourceFolders: gradleProps.getProperty("generatedSourceFolders", "src/gen/java,src/generated/java"),
+	extraTestSourceFolders: gradleProps.getProperty("extraTestSourceFolders", "src/test/generated"),
+	jarResourcesFolder: gradleProps.getProperty("jarResourcesFolder", "src/jar/resources"),
+]
+// ---- end of default config ----
+
+def effectiveConfig = givenConfig + [
+	formattingExcludedPatterns: givenConfig.formattingExcludedPatterns.tokenize(','),
+	generatedSourceFolders: givenConfig.generatedSourceFolders.tokenize(','),
+	extraTestSourceFolders: givenConfig.extraTestSourceFolders.tokenize(','),
+]
+
+logger.lifecycle("Given config: ${givenConfig}")
+logger.info("Effective config: ${effectiveConfig}")
+
+try {
+	se.bjurr.violations.lib.util.Utils.updateReadmeWithReporters()
+} catch (e) {
+	logger.info("Was lookging for Violations section in README but did not find it, skipping updating reporters")
+}
+
+sourceCompatibility = effectiveConfig.sourceCompatibility
+targetCompatibility = effectiveConfig.targetCompatibility
+
+effectiveConfig.generatedSourceFolders.each {
+	addSourceFolderIfExists(it)
+}
+
+effectiveConfig.extraTestSourceFolders.each {
+	addTestSourceFolderIfExists(it)
+}
+
+test {
+	if (System.getProperty('DEBUG', 'false') == 'true') {
+		jvmArgs '-Xdebug',
+				'-Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=9009',
+				'-parameters'
+	}
+}
+
+allprojects {
+	tasks.withType(Javadoc) {
+		options.addStringOption('Xdoclint:none', '-quiet')
+	}
+}
+
+eclipse {
+	classpath {
+		downloadSources = true
+		downloadJavadoc = true
+	}
+}
+
+java {
+	withSourcesJar()
+	withJavadocJar()
+}
+
+if (effectiveConfig.mainClass != '') {
+	jar {
+		manifest {
+			attributes 'Main-Class': effectiveConfig.mainClass
+		}
+		if (new File(effectiveConfig.jarResourcesFolder).exists()) {
+			from effectiveConfig.jarResourcesFolder
+		}
+	}
+}
+
+dependencies {
+	spotbugs 'com.github.spotbugs:spotbugs:4.8.3'
+	spotbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.12.0'
+	compileOnly "com.github.spotbugs:spotbugs-annotations:${spotbugs.toolVersion.get()}"
+}
+
+assemble.doLast {
+	copyIfFound("spotbugs-exclude.xml")
+	copyIfFound("pmd.xml")
+}
+
+tasks.withType(com.github.spotbugs.snom.SpotBugsTask) {
+	enabled = false
+}
+
+spotbugsMain {
+	enabled = true
+	ignoreFailures = true
+	effort = com.github.spotbugs.snom.Effort.MAX
+	showProgress = true
+	showStackTraces = false
+	excludeFilter = new File("$buildDir/spotbugs-exclude.xml")
+	reportsDir = new File("$buildDir/reports/spotbugs/")
+	reports {
+		xml {
+			enabled true
+		}
+	}
+}
+
+pmd {
+	sourceSets = [sourceSets.main]
+	toolVersion = '6.55.0'
+	ruleSets = [] // Gradle has some defaults that needs to be cleared
+	ruleSetFiles = files("$buildDir/pmd.xml")
+}
+
+pmdMain {
+	source = "src/main/java"
+	ignoreFailures = true
+	reports {
+		xml.required = true
+		html.required = true
+	}
+}
+
+task violations(type: se.bjurr.violations.gradle.plugin.ViolationsTask) {
+	minSeverity = 'INFO'
+	detailLevel = 'VERBOSE' // PER_FILE_COMPACT, COMPACT or VERBOSE
+	maxViolations = effectiveConfig.maxViolations
+	printViolations = true
+
+	// Many more formats available, see: https://github.com/tomasbjerre/violations-lib
+	violations = [
+		[
+			"FINDBUGS",
+			".",
+			".*/build/reports/findbugs/.*\\.xml\$",
+			"Findbugs"
+		],
+		[
+			"FINDBUGS",
+			".",
+			".*/build/reports/spotbugs/.*\\.xml\$",
+			"Spotbugs"
+		],
+		[
+			"PMD",
+			".",
+			".*/build/reports/pmd/.*\\.xml\$",
+			"Pmd"
+		]
+	]
+}
+
+check.finalizedBy violations
+
+check.dependsOn spotlessApply
+
+spotless {
+	java {
+		target '**/*.java'
+		googleJavaFormat()
+		targetExclude effectiveConfig.formattingExcludedPatterns
+	}
+	groovyGradle {
+		target '*.gradle'
+		greclipse()
+	}
+}
+
+def findResource(String name, classLoader = project.buildscript.classLoader) {
+	URL resource = classLoader.getResource(name)
+	if (resource == null) {
+		logger.lifecycle("Cannot find resource \"${name}\"")
+		return null;
+	}
+	return resource
+}
+
+def copyIfFound(String name, String target=null, classLoader = project.buildscript.classLoader) {
+	URL resource = findResource(name, classLoader)
+	if (resource != null) {
+		logger.lifecycle("Found resource ${name} as ${resource}")
+		def newFilename = target == null ? "$buildDir/$name" : target
+		copyResourceToFile(resource, newFilename)
+		return new File(newFilename)
+	}
+}
