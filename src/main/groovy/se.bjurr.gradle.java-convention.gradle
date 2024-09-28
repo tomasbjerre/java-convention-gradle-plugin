@@ -13,32 +13,38 @@ repositories {
 	mavenCentral()
 }
 
-def propertyFile = file("$projectDir/gradle.properties")
-def gradleProps = new Properties()
-propertyFile.withReader { gradleProps.load(it) }
 
-// ---- start of default config ----
-def givenConfig = [
-	// mainClass: se.bjurr.violations.main.Main
-	mainClass: gradleProps.getProperty("mainClass", ""),
-	sourceCompatibility: gradleProps.getProperty("sourceCompatibility", "17"),
-	targetCompatibility: gradleProps.getProperty("targetCompatibility", "17"),
-	maxViolations: gradleProps.getProperty("maxViolations", "0"),
-	formattingExcludedPatterns: gradleProps.getProperty("formattingExcludedPatterns", "**/gen/**,**/generated/**"),
-	generatedSourceFolders: gradleProps.getProperty("generatedSourceFolders", "src/gen/java,src/generated/java"),
-	extraTestSourceFolders: gradleProps.getProperty("extraTestSourceFolders", "src/test/generated"),
-	jarResourcesFolder: gradleProps.getProperty("jarResourcesFolder", "src/jar/resources"),
-]
-// ---- end of default config ----
+def getGivenConfigJavaConventions() {
+	def propertyFile = file("$projectDir/gradle.properties")
+	def gradleProps = new Properties()
+	propertyFile.withReader { gradleProps.load(it) }
+	def givenConfig = [
+		// ---- start of default config ----
+		// mainClass: se.bjurr.violations.main.Main
+		mainClass: gradleProps.getProperty("mainClass", ""),
+		sourceCompatibility: gradleProps.getProperty("sourceCompatibility", "17"),
+		targetCompatibility: gradleProps.getProperty("targetCompatibility", "17"),
+		maxViolations: gradleProps.getProperty("maxViolations", "0"),
+		formattingExcludedPatterns: gradleProps.getProperty("formattingExcludedPatterns", "**/gen/**,**/generated/**"),
+		generatedSourceFolders: gradleProps.getProperty("generatedSourceFolders", "src/gen/java,src/generated/java"),
+		extraTestSourceFolders: gradleProps.getProperty("extraTestSourceFolders", "src/test/generated"),
+		jarResourcesFolder: gradleProps.getProperty("jarResourcesFolder", "src/jar/resources"),
+		// ---- end of default config ----
+	]
+	return givenConfig
+}
 
-def effectiveConfig = givenConfig + [
-	formattingExcludedPatterns: givenConfig.formattingExcludedPatterns.tokenize(','),
-	generatedSourceFolders: givenConfig.generatedSourceFolders.tokenize(','),
-	extraTestSourceFolders: givenConfig.extraTestSourceFolders.tokenize(','),
-]
+def getEffectiveJavaConventions() {
+	def givenConfig = getGivenConfigJavaConventions()
+	return givenConfig + [
+		formattingExcludedPatterns: givenConfig.formattingExcludedPatterns.tokenize(','),
+		generatedSourceFolders: givenConfig.generatedSourceFolders.tokenize(','),
+		extraTestSourceFolders: givenConfig.extraTestSourceFolders.tokenize(','),
+	]
+}
 
-logger.lifecycle("Given config: ${givenConfig}")
-logger.info("Effective config: ${effectiveConfig}")
+logger.info("Java Conventions: Given config: ${getGivenConfigJavaConventions()}")
+logger.info("Java Conventions: Effective config: ${getEffectiveJavaConventions()}")
 
 try {
 	se.bjurr.violations.lib.util.Utils.updateReadmeWithReporters()
@@ -46,14 +52,14 @@ try {
 	logger.info("Was lookging for Violations section in README but did not find it, skipping updating reporters")
 }
 
-sourceCompatibility = effectiveConfig.sourceCompatibility
-targetCompatibility = effectiveConfig.targetCompatibility
+sourceCompatibility = getEffectiveJavaConventions().sourceCompatibility
+targetCompatibility = getEffectiveJavaConventions().targetCompatibility
 
-effectiveConfig.generatedSourceFolders.each {
+getEffectiveJavaConventions().generatedSourceFolders.each {
 	addSourceFolderIfExists(it)
 }
 
-effectiveConfig.extraTestSourceFolders.each {
+getEffectiveJavaConventions().extraTestSourceFolders.each {
 	addTestSourceFolderIfExists(it)
 }
 
@@ -83,13 +89,13 @@ java {
 	withJavadocJar()
 }
 
-if (effectiveConfig.mainClass != '') {
+if (getEffectiveJavaConventions().mainClass != '') {
 	jar {
 		manifest {
-			attributes 'Main-Class': effectiveConfig.mainClass
+			attributes 'Main-Class': getEffectiveJavaConventions().mainClass
 		}
-		if (new File(effectiveConfig.jarResourcesFolder).exists()) {
-			from effectiveConfig.jarResourcesFolder
+		if (new File(getEffectiveJavaConventions().jarResourcesFolder).exists()) {
+			from getEffectiveJavaConventions().jarResourcesFolder
 		}
 	}
 }
@@ -143,7 +149,7 @@ pmdMain {
 task violations(type: se.bjurr.violations.gradle.plugin.ViolationsTask) {
 	minSeverity = 'INFO'
 	detailLevel = 'VERBOSE' // PER_FILE_COMPACT, COMPACT or VERBOSE
-	maxViolations = effectiveConfig.maxViolations
+	maxViolations = getEffectiveJavaConventions().maxViolations
 	printViolations = true
 
 	// Many more formats available, see: https://github.com/tomasbjerre/violations-lib
@@ -177,7 +183,7 @@ spotless {
 	java {
 		target '**/*.java'
 		googleJavaFormat()
-		targetExclude effectiveConfig.formattingExcludedPatterns
+		targetExclude getEffectiveJavaConventions().formattingExcludedPatterns
 	}
 	groovyGradle {
 		target '*.gradle', '**/*.gradle'

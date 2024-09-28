@@ -21,17 +21,15 @@ It can be tweaked in `gradle.properties` with some properties:
 <!-- start default config -->
 ```groovy
 
-def givenConfig = [
-	// mainClass: se.bjurr.violations.main.Main
-	mainClass: gradleProps.getProperty("mainClass", ""),
-	sourceCompatibility: gradleProps.getProperty("sourceCompatibility", "17"),
-	targetCompatibility: gradleProps.getProperty("targetCompatibility", "17"),
-	maxViolations: gradleProps.getProperty("maxViolations", "0"),
-	formattingExcludedPatterns: gradleProps.getProperty("formattingExcludedPatterns", "**/gen/**,**/generated/**"),
-	generatedSourceFolders: gradleProps.getProperty("generatedSourceFolders", "src/gen/java,src/generated/java"),
-	extraTestSourceFolders: gradleProps.getProperty("extraTestSourceFolders", "src/test/generated"),
-	jarResourcesFolder: gradleProps.getProperty("jarResourcesFolder", "src/jar/resources"),
-]
-
+		// mainClass: se.bjurr.violations.main.Main
+		mainClass: gradleProps.getProperty("mainClass", ""),
+		sourceCompatibility: gradleProps.getProperty("sourceCompatibility", "17"),
+		targetCompatibility: gradleProps.getProperty("targetCompatibility", "17"),
+		maxViolations: gradleProps.getProperty("maxViolations", "0"),
+		formattingExcludedPatterns: gradleProps.getProperty("formattingExcludedPatterns", "**/gen/**,**/generated/**"),
+		generatedSourceFolders: gradleProps.getProperty("generatedSourceFolders", "src/gen/java,src/generated/java"),
+		extraTestSourceFolders: gradleProps.getProperty("extraTestSourceFolders", "src/test/generated"),
+		jarResourcesFolder: gradleProps.getProperty("jarResourcesFolder", "src/jar/resources"),
+		
 ```
 <!-- end default config -->
