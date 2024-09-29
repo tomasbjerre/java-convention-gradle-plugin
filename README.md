@@ -1,4 +1,4 @@
-# Java Convention Gradle Pluigin
+# Java Convention Gradle Plugin
 
 [![Gradle Plugin Portal](https://img.shields.io/gradle-plugin-portal/v/se.bjurr.gradle.java-convention)](https://plugins.gradle.org/plugin/se.bjurr.gradle.java-convention)
 
@@ -12,9 +12,8 @@ Defines the Java conventions I use in my projects.
 
 It can be tweaked in `gradle.properties` with some properties, the plugin reads them like this:
 
-<!-- start default config -->
 ```groovy
-
+// ---- default config ----
 // mainClass: se.bjurr.violations.main.Main
 mainClass: project.getProperties().getOrDefault("mainClass", ""),
 sourceCompatibility: project.getProperties().getOrDefault("sourceCompatibility", "17"),
@@ -25,6 +24,5 @@ generatedSourceFolders: project.getProperties().getOrDefault("generatedSourceFol
 extraTestSourceFolders: project.getProperties().getOrDefault("extraTestSourceFolders", "src/test/generated"),
 jarResourcesFolder: project.getProperties().getOrDefault("jarResourcesFolder", "src/jar/resources"),
 useViolations: project.getProperties().getOrDefault("useViolations", "true") == true,
-
+// ---- default config ----
 ```
-<!-- end default config -->

@@ -1,6 +1,6 @@
 def getGivenConfigJavaConventions() {
 	def givenConfig = [
-		// ---- start of default config ----
+		// ---- default config ----
 		// mainClass: se.bjurr.violations.main.Main
 		mainClass: project.getProperties().getOrDefault("mainClass", ""),
 		sourceCompatibility: project.getProperties().getOrDefault("sourceCompatibility", "17"),
@@ -11,7 +11,7 @@ def getGivenConfigJavaConventions() {
 		extraTestSourceFolders: project.getProperties().getOrDefault("extraTestSourceFolders", "src/test/generated"),
 		jarResourcesFolder: project.getProperties().getOrDefault("jarResourcesFolder", "src/jar/resources"),
 		useViolations: project.getProperties().getOrDefault("useViolations", "true") == true,
-		// ---- end of default config ----
+		// ---- default config ----
 	]
 	return givenConfig
 }
