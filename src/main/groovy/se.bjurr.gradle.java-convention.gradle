@@ -51,9 +51,9 @@ repositories {
 
 try {
 	se.bjurr.violations.lib.util.Utils.updateReadmeWithReporters()
-	logger.lifecycle("Updated README with list of reporters")
+	logger.info("Updated README with list of reporters")
 } catch (e) {
-	logger.lifecycle("Not updating README with list of reporters: "+e.getMessage())
+	logger.info("Not updating README with list of reporters: "+e.getMessage())
 }
 
 sourceCompatibility = getEffectiveJavaConventions().sourceCompatibility

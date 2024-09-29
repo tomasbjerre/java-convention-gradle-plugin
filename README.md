@@ -10,7 +10,7 @@ Defines the Java conventions I use in my projects.
 - Plugins, which ones and configuration
 - JVM Args
 
-It can be tweaked in `gradle.properties` with some properties:
+It can be tweaked in `gradle.properties` with some properties, the plugin reads them like this:
 
 <!-- start default config -->
 ```groovy
