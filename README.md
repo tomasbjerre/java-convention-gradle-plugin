@@ -16,15 +16,15 @@ It can be tweaked in `gradle.properties` with some properties, the plugin reads 
 ```groovy
 
 // mainClass: se.bjurr.violations.main.Main
-mainClass: gradleProps.getProperty("mainClass", ""),
-sourceCompatibility: gradleProps.getProperty("sourceCompatibility", "17"),
-targetCompatibility: gradleProps.getProperty("targetCompatibility", "17"),
-maxViolations: gradleProps.getProperty("maxViolations", "0"),
-formattingExcludedPatterns: gradleProps.getProperty("formattingExcludedPatterns", "**/gen/**,**/generated/**"),
-generatedSourceFolders: gradleProps.getProperty("generatedSourceFolders", "src/gen/java,src/generated/java"),
-extraTestSourceFolders: gradleProps.getProperty("extraTestSourceFolders", "src/test/generated"),
-jarResourcesFolder: gradleProps.getProperty("jarResourcesFolder", "src/jar/resources"),
-useViolations: gradleProps.getProperty("useViolations", "true") == true,
+mainClass: project.getProperties().getOrDefault("mainClass", ""),
+sourceCompatibility: project.getProperties().getOrDefault("sourceCompatibility", "17"),
+targetCompatibility: project.getProperties().getOrDefault("targetCompatibility", "17"),
+maxViolations: project.getProperties().getOrDefault("maxViolations", "0"),
+formattingExcludedPatterns: project.getProperties().getOrDefault("formattingExcludedPatterns", "**/gen/**,**/generated/**"),
+generatedSourceFolders: project.getProperties().getOrDefault("generatedSourceFolders", "src/gen/java,src/generated/java"),
+extraTestSourceFolders: project.getProperties().getOrDefault("extraTestSourceFolders", "src/test/generated"),
+jarResourcesFolder: project.getProperties().getOrDefault("jarResourcesFolder", "src/jar/resources"),
+useViolations: project.getProperties().getOrDefault("useViolations", "true") == true,
 
 ```
 <!-- end default config -->
