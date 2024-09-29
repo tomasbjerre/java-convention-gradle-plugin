@@ -53,7 +53,7 @@ try {
 	se.bjurr.violations.lib.util.Utils.updateReadmeWithReporters()
 	logger.lifecycle("Updated README with list of reporters")
 } catch (e) {
-	logger.lifecycle("Violations not on classpath, cannot update README with list of reporters")
+	logger.lifecycle("Not updating README with list of reporters: "+e.getMessage())
 }
 
 sourceCompatibility = getEffectiveJavaConventions().sourceCompatibility

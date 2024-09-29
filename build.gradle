@@ -21,6 +21,7 @@ repositories {
 }
 
 dependencies {
+	implementation "se.bjurr.violations:violations-lib:+"
 	implementation "com.github.spotbugs.snom:spotbugs-gradle-plugin:6.0.23"
 	implementation "se.bjurr.violations:violations-gradle-plugin:2.1.2"
 	implementation 'com.diffplug.spotless:spotless-plugin-gradle:6.25.0'
