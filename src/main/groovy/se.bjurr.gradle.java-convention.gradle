@@ -29,7 +29,6 @@ def getGivenConfigJavaConventions() {
 		generatedSourceFolders: gradleProps.getProperty("generatedSourceFolders", "src/gen/java,src/generated/java"),
 		extraTestSourceFolders: gradleProps.getProperty("extraTestSourceFolders", "src/test/generated"),
 		jarResourcesFolder: gradleProps.getProperty("jarResourcesFolder", "src/jar/resources"),
-		updateReadmeWithViolationReporters: gradleProps.getProperty("updateReadmeWithViolationReporters", "false") == "true",
 		// ---- end of default config ----
 	]
 	return givenConfig
@@ -47,6 +46,12 @@ def getEffectiveJavaConventions() {
 logger.info("Java Conventions: Given config: ${getGivenConfigJavaConventions()}")
 logger.info("Java Conventions: Effective config: ${getEffectiveJavaConventions()}")
 
+try {
+	se.bjurr.violations.lib.util.Utils.updateReadmeWithReporters()
+	logger.lifecycle("Updated README with list of reporters")
+} catch (e) {
+	logger.lifecycle("Violations not on classpath, cannot update README with list of reporters")
+}
 
 sourceCompatibility = getEffectiveJavaConventions().sourceCompatibility
 targetCompatibility = getEffectiveJavaConventions().targetCompatibility

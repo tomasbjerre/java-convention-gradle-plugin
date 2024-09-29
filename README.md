@@ -24,7 +24,6 @@ formattingExcludedPatterns: gradleProps.getProperty("formattingExcludedPatterns"
 generatedSourceFolders: gradleProps.getProperty("generatedSourceFolders", "src/gen/java,src/generated/java"),
 extraTestSourceFolders: gradleProps.getProperty("extraTestSourceFolders", "src/test/generated"),
 jarResourcesFolder: gradleProps.getProperty("jarResourcesFolder", "src/jar/resources"),
-updateReadmeWithViolationReporters: gradleProps.getProperty("updateReadmeWithViolationReporters", "false") == "true",
 
 ```
 <!-- end default config -->
