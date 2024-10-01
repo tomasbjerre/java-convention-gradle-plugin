@@ -2,6 +2,12 @@
 
 Changelog of java-convention-gradle-plugin.
 
+## 0.1.2 (2024-10-01)
+
+### Bug Fixes
+
+-  avoid duplicate staging repositories ([07e3d](https://github.com/tomasbjerre/java-convention-gradle-plugin/commit/07e3dd729965def) Tomas Bjerre)  
+
 ## 0.1.1 (2024-10-01)
 
 ### Bug Fixes
