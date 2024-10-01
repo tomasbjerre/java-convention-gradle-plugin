@@ -2,6 +2,12 @@
 
 Changelog of java-convention-gradle-plugin.
 
+## 0.1.3 (2024-10-01)
+
+### Bug Fixes
+
+-  violations ([5b721](https://github.com/tomasbjerre/java-convention-gradle-plugin/commit/5b7212b10a95677) Tomas Bjerre)  
+
 ## 0.1.2 (2024-10-01)
 
 ### Bug Fixes
