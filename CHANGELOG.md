@@ -2,6 +2,12 @@
 
 Changelog of java-convention-gradle-plugin.
 
+## 0.2.0 (2024-10-01)
+
+### Features
+
+-  Java 17 ([42a60](https://github.com/tomasbjerre/java-convention-gradle-plugin/commit/42a6015c175a4fd) Tomas Bjerre)  
+
 ## 0.1.4 (2024-10-01)
 
 ### Bug Fixes
