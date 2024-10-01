@@ -1,6 +1,6 @@
 # Java Convention Gradle Plugin
 
-[![Gradle Plugin Portal](https://img.shields.io/gradle-plugin-portal/v/se.bjurr.gradle.java-convention)](https://plugins.gradle.org/plugin/se.bjurr.gradle.java-convention)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/se.bjurr.gradle.java-convention/se.bjurr.gradle.java-convention.gradle.plugin/badge.svg)](https://search.maven.org/artifact/se.bjurr.gradle.java-convention/se.bjurr.gradle.java-convention.gradle.plugin)
 
 Defines the Java conventions I use in my projects.
 
