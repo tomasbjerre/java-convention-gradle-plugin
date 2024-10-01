@@ -28,7 +28,7 @@ It can be tweaked in `gradle.properties` with some properties, the plugin reads 
 mainClass: project.getProperties().getOrDefault("mainClass", ""),
 sourceCompatibility: project.getProperties().getOrDefault("sourceCompatibility", "17"),
 targetCompatibility: project.getProperties().getOrDefault("targetCompatibility", "17"),
-maxViolations: project.getProperties().getOrDefault("maxViolations", "0"),
+maxViolations: Integer.parseInt(project.getProperties().getOrDefault("maxViolations", "0")),
 formattingExcludedPatterns: project.getProperties().getOrDefault("formattingExcludedPatterns", "**/gen/**,**/generated/**"),
 generatedSourceFolders: project.getProperties().getOrDefault("generatedSourceFolders", "src/gen/java,src/generated/java"),
 extraTestSourceFolders: project.getProperties().getOrDefault("extraTestSourceFolders", "src/test/generated"),
