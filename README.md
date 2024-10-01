@@ -10,6 +10,16 @@ Defines the Java conventions I use in my projects.
 - Plugins, which ones and configuration
 - JVM Args
 
+## Usage
+
+Apply it with:
+
+```groovy
+plugins {
+ id "se.bjurr.gradle.java-convention" version "X"
+}
+```
+
 It can be tweaked in `gradle.properties` with some properties, the plugin reads them like this:
 
 ```groovy
