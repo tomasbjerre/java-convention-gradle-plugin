@@ -33,6 +33,6 @@ formattingExcludedPatterns: project.getProperties().getOrDefault("formattingExcl
 generatedSourceFolders: project.getProperties().getOrDefault("generatedSourceFolders", "src/gen/java,src/generated/java"),
 extraTestSourceFolders: project.getProperties().getOrDefault("extraTestSourceFolders", "src/test/generated"),
 jarResourcesFolder: project.getProperties().getOrDefault("jarResourcesFolder", "src/jar/resources"),
-useViolations: project.getProperties().getOrDefault("useViolations", "true") == true,
+useViolations: project.getProperties().getOrDefault("useViolations", "true") == "true",
 // ---- default config ----
 ```
