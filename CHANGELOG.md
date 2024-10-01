@@ -2,6 +2,12 @@
 
 Changelog of java-convention-gradle-plugin.
 
+## 0.1.1 (2024-10-01)
+
+### Bug Fixes
+
+-  applying groovy-gradle-plugin ([2293b](https://github.com/tomasbjerre/java-convention-gradle-plugin/commit/2293bbf2b03c326) Tomas Bjerre)  
+
 ## 0.1.0 (2024-10-01)
 
 ### Features
