@@ -5,7 +5,7 @@ buildscript {
 		mavenLocal()
 	}
 	dependencies {
-		classpath "se.bjurr.gradle:conventional-release-gradle-plugin:latest-SNAPSHOT"
+		classpath "se.bjurr.gradle:conventional-release-gradle-plugin:0.1.12"
 		classpath "com.diffplug.spotless:spotless-plugin-gradle:6.25.0"
 	}
 }
