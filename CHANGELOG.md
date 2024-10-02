@@ -1,6 +1,4 @@
-# java-convention-gradle-plugin changelog
 
-Changelog of java-convention-gradle-plugin.
 
 ## 0.2.0 (2024-10-01)
 
