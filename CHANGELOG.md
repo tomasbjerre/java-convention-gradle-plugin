@@ -1,3 +1,9 @@
+## 0.2.1 (2024-10-02)
+
+### Bug Fixes
+
+-  only prepending latest tag ([31b62](https://github.com/tomasbjerre/java-convention-gradle-plugin/commit/31b62f00ed8f6ce) Tomas Bjerre)  
+
 
 
 ## 0.2.0 (2024-10-01)
