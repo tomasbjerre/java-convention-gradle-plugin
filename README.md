@@ -36,3 +36,5 @@ jarResourcesFolder: project.getProperties().getOrDefault("jarResourcesFolder", "
 useViolations: project.getProperties().getOrDefault("useViolations", "true") == "true",
 // ---- default config ----
 ```
+
+Works great with https://github.com/tomasbjerre/conventional-release-gradle-plugin
