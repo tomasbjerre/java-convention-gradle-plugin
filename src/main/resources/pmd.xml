@@ -21,6 +21,8 @@
         <exclude name="AvoidCatchingNPE"/>
         <exclude name="AvoidFieldNameMatchingMethodName"/>
         <exclude name="AvoidFieldNameMatchingTypeName"/>
+        <exclude name="DoNotThrowExceptionInFinally"/>
+        <exclude name="DoNotThrowExceptionInFinally"/>
     </rule>
 
     <rule ref="category/java/bestpractices.xml">
