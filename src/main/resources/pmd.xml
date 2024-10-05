@@ -22,7 +22,7 @@
         <exclude name="AvoidFieldNameMatchingMethodName"/>
         <exclude name="AvoidFieldNameMatchingTypeName"/>
         <exclude name="DoNotThrowExceptionInFinally"/>
-        <exclude name="DoNotThrowExceptionInFinally"/>
+        <exclude name="AssignmentInOperand"/>
     </rule>
 
     <rule ref="category/java/bestpractices.xml">
