@@ -1,3 +1,9 @@
+## 0.4.0 (2024-10-05)
+
+### Features
+
+-  ignoring some more PMD rules ([f729d](https://github.com/tomasbjerre/java-convention-gradle-plugin/commit/f729d6ade4096aa) Tomas Bjerre)  
+
 ## 0.3.0 (2024-10-05)
 
 ### Features
