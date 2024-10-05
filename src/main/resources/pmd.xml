@@ -53,6 +53,8 @@
         <exclude name="UselessQualifiedThis"/>
         <exclude name="ShortClassName"/>
         <exclude name="BooleanGetMethodName"/>
+        <exclude name="FieldDeclarationsShouldBeAtStartOfClass"/>
+        <exclude name="UnnecessaryLocalBeforeReturn"/>
     </rule>
 
     <rule ref="category/java/design.xml">
@@ -77,6 +79,8 @@
         <exclude name="ExcessivePublicCount"/>
         <exclude name="TooManyFields"/>
         <exclude name="ExcessiveParameterList"/>
+        <exclude name="UseObjectForClearerAPI"/>
+        <exclude name="ClassWithOnlyPrivateConstructorsShouldBeFinal"/>
     </rule>
 
     <rule ref="category/java/security.xml">
@@ -96,6 +100,9 @@
         <exclude name="InefficientEmptyStringCheck"/>
         <exclude name="UseIndexOfChar"/>
         <exclude name="AppendCharacterWithChar"/>
+        <exclude name="RedundantFieldInitializer"/>
+        <exclude name="AddEmptyString"/>
+        <exclude name="InefficientStringBuffering"/>
     </rule>
 
     <rule ref="category/java/multithreading.xml">
