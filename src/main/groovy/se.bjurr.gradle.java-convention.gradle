@@ -45,14 +45,6 @@ repositories {
 	mavenCentral()
 }
 
-
-try {
-	se.bjurr.violations.lib.util.Utils.updateReadmeWithReporters()
-	logger.info("Updated README with list of reporters")
-} catch (e) {
-	logger.info("Not updating README with list of reporters: "+e.getMessage())
-}
-
 sourceCompatibility = getEffectiveJavaConventions().sourceCompatibility
 targetCompatibility = getEffectiveJavaConventions().targetCompatibility
 
@@ -72,12 +64,6 @@ test {
 	}
 }
 
-allprojects {
-	tasks.withType(Javadoc) {
-		options.addStringOption('Xdoclint:none', '-quiet')
-	}
-}
-
 eclipse {
 	classpath {
 		downloadSources = true
@@ -90,6 +76,56 @@ java {
 	withJavadocJar()
 }
 
+
+/**
+ * Annotation processing and other compile args.
+ */
+def generatedDir = file("src/generated-source/java")
+task prepareJavacCodegenFolder {
+	doLast {
+		if (generatedDir.exists()) {
+			delete generatedDir
+		}
+		generatedDir.mkdirs()
+	}
+}
+compileJava.dependsOn "prepareJavacCodegenFolder"
+shouldGitIgnore("src/generated-source")
+sourceSets.main.java.srcDirs += generatedDir
+sourceSets.configureEach { sourceSet ->
+	tasks.named(sourceSet.compileJavaTaskName).configure {
+		options.annotationProcessorGeneratedSourcesDirectory = generatedDir
+	}
+}
+
+tasks.withType(JavaCompile) {
+	options.compilerArgs << "-Xlint:-deprecation"
+	options.compilerArgs << "-Xlint:-processing"
+	options.compilerArgs << "-Xdoclint:none"
+	options.warnings = false
+	options.compilerArgs << "-parameters"
+	options.compilerArgs << "-s"
+	options.compilerArgs << generatedDir
+	options.encoding = "UTF-8"
+	sourceCompatibility = effectiveConfig.sourceCompatibility
+	targetCompatibility = effectiveConfig.targetCompatibility
+}
+
+
+/**
+ * If one of the Violations projects.
+ */
+try {
+	se.bjurr.violations.lib.util.Utils.updateReadmeWithReporters()
+	logger.info("Updated README with list of reporters")
+} catch (e) {
+	logger.info("Not updating README with list of reporters: "+e.getMessage())
+}
+
+
+/**
+ * If command line tool
+ */
 if (getEffectiveJavaConventions().mainClass != '') {
 	jar {
 		manifest {
@@ -100,6 +136,11 @@ if (getEffectiveJavaConventions().mainClass != '') {
 		}
 	}
 }
+
+
+/**
+ * Static code analysis
+ */
 
 dependencies {
 	spotbugs 'com.github.spotbugs:spotbugs:4.8.3'
@@ -200,6 +241,10 @@ spotless {
 	}
 }
 
+
+/**
+ * Supporting stuff
+ */
 def findResource(String name, classLoader = project.buildscript.classLoader) {
 	URL resource = classLoader.getResource(name)
 	if (resource == null) {
