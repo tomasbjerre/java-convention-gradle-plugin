@@ -90,7 +90,6 @@ task prepareJavacCodegenFolder {
 	}
 }
 compileJava.dependsOn "prepareJavacCodegenFolder"
-shouldGitIgnore("src/generated-source")
 sourceSets.main.java.srcDirs += generatedDir
 sourceSets.configureEach { sourceSet ->
 	tasks.named(sourceSet.compileJavaTaskName).configure {
