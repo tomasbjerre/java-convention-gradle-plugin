@@ -1,3 +1,9 @@
+## 0.5.1 (2024-10-14)
+
+### Bug Fixes
+
+-  remove shouldGitIgnore ([281e7](https://github.com/tomasbjerre/java-convention-gradle-plugin/commit/281e7d26d46d1ce) Tomas Bjerre)  
+
 ## 0.5.0 (2024-10-14)
 
 ### Features
