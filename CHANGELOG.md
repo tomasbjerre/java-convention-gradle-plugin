@@ -1,3 +1,9 @@
+## 0.5.2 (2024-10-14)
+
+### Bug Fixes
+
+-  remove compatibility ([3a638](https://github.com/tomasbjerre/java-convention-gradle-plugin/commit/3a6382b7f732521) Tomas Bjerre)  
+
 ## 0.5.1 (2024-10-14)
 
 ### Bug Fixes
