@@ -1,3 +1,9 @@
+## 0.5.0 (2024-10-14)
+
+### Features
+
+-  annotation processing and other compile args ([9c3ea](https://github.com/tomasbjerre/java-convention-gradle-plugin/commit/9c3ea0333c83d2b) Tomas Bjerre)  
+
 ## 0.4.1 (2024-10-05)
 
 ### Bug Fixes
