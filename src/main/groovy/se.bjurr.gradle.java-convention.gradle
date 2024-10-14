@@ -106,8 +106,8 @@ tasks.withType(JavaCompile) {
 	options.compilerArgs << "-s"
 	options.compilerArgs << generatedDir
 	options.encoding = "UTF-8"
-	sourceCompatibility = effectiveConfig.sourceCompatibility
-	targetCompatibility = effectiveConfig.targetCompatibility
+	sourceCompatibility = getEffectiveJavaConventions().sourceCompatibility
+	targetCompatibility = getEffectiveJavaConventions().targetCompatibility
 }
 
 
