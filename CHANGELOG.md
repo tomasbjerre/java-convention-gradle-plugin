@@ -1,3 +1,9 @@
+## 0.5.3 (2024-10-14)
+
+### Bug Fixes
+
+-  removing annotation processing, input output issues ([842b5](https://github.com/tomasbjerre/java-convention-gradle-plugin/commit/842b5788a83c03c) Tomas Bjerre)  
+
 ## 0.5.2 (2024-10-14)
 
 ### Bug Fixes
