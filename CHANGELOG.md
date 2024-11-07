@@ -1,3 +1,8 @@
+## 0.5.4 (2024-11-07)
+
+### Dependency updates
+
+- violations-gradle-plugin:2.3.0 ([d88d2](https://github.com/tomasbjerre/java-convention-gradle-plugin/commit/d88d244aac5c587) Tomas Bjerre)  
 ## 0.5.3 (2024-10-14)
 
 ### Bug Fixes
