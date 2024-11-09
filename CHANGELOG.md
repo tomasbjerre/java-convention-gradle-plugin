@@ -1,3 +1,9 @@
+## 0.5.6 (2024-11-09)
+
+### Bug Fixes
+
+-  correct enum in minSeverity ([7a5bf](https://github.com/tomasbjerre/java-convention-gradle-plugin/commit/7a5bf2d5f3210df) Tomas Bjerre)  
+
 ## 0.5.5 (2024-11-09)
 
 ### Dependency updates
