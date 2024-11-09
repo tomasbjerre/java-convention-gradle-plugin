@@ -172,7 +172,7 @@ pmdMain {
 
 if (getEffectiveJavaConventions().useViolations) {
 	task violations(type: se.bjurr.violations.gradle.plugin.ViolationsTask) {
-		minSeverity.set(se.bjurr.violations.lib.model.INFO)
+		minSeverity.set(se.bjurr.violations.lib.model.SEVERITY.INFO)
 		detailLevel.set(se.bjurr.violations.git.ViolationsReporterDetailLevel.VERBOSE)
 		maxViolations.set(getEffectiveJavaConventions().maxViolations)
 		printViolations.set(true)
