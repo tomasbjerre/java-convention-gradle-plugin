@@ -24,16 +24,28 @@ It can be tweaked in `gradle.properties` with some properties, the plugin reads 
 
 ```groovy
 // ---- default config ----
-// mainClass: se.bjurr.violations.main.Main
-mainClass: project.getProperties().getOrDefault("mainClass", ""),
-sourceCompatibility: project.getProperties().getOrDefault("sourceCompatibility", "17"),
-targetCompatibility: project.getProperties().getOrDefault("targetCompatibility", "17"),
-maxViolations: Integer.parseInt(project.getProperties().getOrDefault("maxViolations", "0")),
-formattingExcludedPatterns: project.getProperties().getOrDefault("formattingExcludedPatterns", "**/gen/**,**/generated/**,**/generated-source/**"),
-generatedSourceFolders: project.getProperties().getOrDefault("generatedSourceFolders", "src/gen/java,src/generated/java"),
-extraTestSourceFolders: project.getProperties().getOrDefault("extraTestSourceFolders", "src/test/generated"),
-jarResourcesFolder: project.getProperties().getOrDefault("jarResourcesFolder", "src/jar/resources"),
-useViolations: project.getProperties().getOrDefault("useViolations", "true") == "true",
+interface JavaConventionPluginExtension {
+	Property<String> getMainClass()
+	Property<String> getSourceCompatibility()
+	Property<String> getTargetCompatibility()
+	Property<String> getMaxViolations()
+	ListProperty<String> getFormattingExcludedPatterns()
+	ListProperty<String> getGeneratedSourceFolders()
+	ListProperty<String> getExtraTestSourceFolders()
+	ListProperty<String> getJarResourcesFolder()
+	Property<String> getUseViolations()
+}
+
+def extension = project.extensions.create("javaConvention", JavaConventionPluginExtension)
+extension.mainClass.convention("")
+extension.sourceCompatibility.convention(17)
+extension.targetCompatibility.convention(17)
+extension.maxViolations.convention(0)
+extension.formattingExcludedPatterns.convention(["**/gen/**","**/generated/**","**/generated-source/**"])
+extension.generatedSourceFolders.convention(["src/gen/java","src/generated/java"])
+extension.extraTestSourceFolders.convention(["src/test/generated"])
+extension.jarResourcesFolder.convention(["src/jar/resources"])
+extension.useViolations.convention(true)
 // ---- default config ----
 ```
 

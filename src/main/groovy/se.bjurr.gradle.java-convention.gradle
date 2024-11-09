@@ -1,37 +1,29 @@
-def getGivenConfigJavaConventions() {
-	def givenConfig = [
-		// ---- default config ----
-		// mainClass: se.bjurr.violations.main.Main
-		mainClass: project.getProperties().getOrDefault("mainClass", ""),
-		sourceCompatibility: project.getProperties().getOrDefault("sourceCompatibility", "17"),
-		targetCompatibility: project.getProperties().getOrDefault("targetCompatibility", "17"),
-		maxViolations: Integer.parseInt(project.getProperties().getOrDefault("maxViolations", "0")),
-		formattingExcludedPatterns: project.getProperties().getOrDefault("formattingExcludedPatterns", "**/gen/**,**/generated/**,**/generated-source/**"),
-		generatedSourceFolders: project.getProperties().getOrDefault("generatedSourceFolders", "src/gen/java,src/generated/java"),
-		extraTestSourceFolders: project.getProperties().getOrDefault("extraTestSourceFolders", "src/test/generated"),
-		jarResourcesFolder: project.getProperties().getOrDefault("jarResourcesFolder", "src/jar/resources"),
-		useViolations: project.getProperties().getOrDefault("useViolations", "true") == "true",
-		// ---- default config ----
-	]
-	return givenConfig
+// ---- default config ----
+interface JavaConventionPluginExtension {
+	Property<String> getMainClass()
+	Property<String> getSourceCompatibility()
+	Property<String> getTargetCompatibility()
+	Property<String> getMaxViolations()
+	ListProperty<String> getFormattingExcludedPatterns()
+	ListProperty<String> getGeneratedSourceFolders()
+	ListProperty<String> getExtraTestSourceFolders()
+	ListProperty<String> getJarResourcesFolder()
+	Property<String> getUseViolations()
 }
 
-def getEffectiveJavaConventions() {
-	def givenConfig = getGivenConfigJavaConventions()
-	return givenConfig + [
-		formattingExcludedPatterns: givenConfig.formattingExcludedPatterns.tokenize(','),
-		generatedSourceFolders: givenConfig.generatedSourceFolders.tokenize(','),
-		extraTestSourceFolders: givenConfig.extraTestSourceFolders.tokenize(','),
-	]
-}
+def extension = project.extensions.create("javaConvention", JavaConventionPluginExtension)
+extension.mainClass.convention("")
+extension.sourceCompatibility.convention(17)
+extension.targetCompatibility.convention(17)
+extension.maxViolations.convention(0)
+extension.formattingExcludedPatterns.convention(["**/gen/**","**/generated/**","**/generated-source/**"])
+extension.generatedSourceFolders.convention(["src/gen/java","src/generated/java"])
+extension.extraTestSourceFolders.convention(["src/test/generated"])
+extension.jarResourcesFolder.convention(["src/jar/resources"])
+extension.useViolations.convention(true)
+// ---- default config ----
 
-logger.info("Java Conventions: Given config: ${getGivenConfigJavaConventions()}")
-logger.info("Java Conventions: Effective config: ${getEffectiveJavaConventions()}")
-
-
-if (getEffectiveJavaConventions().useViolations) {
-	project.plugins.apply "se.bjurr.violations.violations-gradle-plugin"
-}
+project.plugins.apply "se.bjurr.violations.violations-gradle-plugin"
 project.plugins.apply "com.github.spotbugs"
 project.plugins.apply "pmd"
 project.plugins.apply 'java-library'
