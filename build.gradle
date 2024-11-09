@@ -4,6 +4,7 @@
 plugins {
 	id "groovy-gradle-plugin"
 	id "se.bjurr.gradle.conventional-release" version "0.+"
+	id "se.bjurr.gradle.update-versions" version "0.+"
 	id "com.diffplug.spotless" version "6.25.0"
 }
 
@@ -12,8 +13,8 @@ plugins {
  */
 dependencies {
 	implementation "se.bjurr.violations:violations-lib:1.157.3"
-	implementation "com.github.spotbugs.snom:spotbugs-gradle-plugin:6.0.23"
-	implementation "se.bjurr.violations:violations-gradle-plugin:2.3.0"
+	implementation 'com.github.spotbugs.snom:spotbugs-gradle-plugin:6.0.26'
+	implementation 'se.bjurr.violations:violations-gradle-plugin:3.0.1'
 	implementation 'com.diffplug.spotless:spotless-plugin-gradle:6.25.0'
 }
 
