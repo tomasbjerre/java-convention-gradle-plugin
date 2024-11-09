@@ -1,3 +1,9 @@
+## 0.5.7 (2024-11-09)
+
+### Bug Fixes
+
+-  properties were missing default values ([35022](https://github.com/tomasbjerre/java-convention-gradle-plugin/commit/350226bc0993b29) Tomas Bjerre)  
+
 ## 0.5.6 (2024-11-09)
 
 ### Bug Fixes
