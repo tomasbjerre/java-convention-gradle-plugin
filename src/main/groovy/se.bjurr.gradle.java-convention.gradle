@@ -130,10 +130,13 @@ dependencies {
 	compileOnly "com.github.spotbugs:spotbugs-annotations:${spotbugs.toolVersion.get()}"
 }
 
-assemble.doLast {
-	copyIfFound("spotbugs-exclude.xml")
-	copyIfFound("pmd.xml")
+task copyScaConfig {
+	doLast {
+		copyIfFound("spotbugs-exclude.xml")
+		copyIfFound("pmd.xml")
+	}
 }
+check.dependsOn("copyScaConfig")
 
 tasks.withType(com.github.spotbugs.snom.SpotBugsTask) {
 	enabled = false
