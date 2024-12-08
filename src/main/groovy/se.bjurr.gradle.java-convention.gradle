@@ -130,7 +130,7 @@ dependencies {
 	compileOnly "com.github.spotbugs:spotbugs-annotations:${spotbugs.toolVersion.get()}"
 }
 
-assemble.doLast {
+check.doFirst {
 	copyIfFound("spotbugs-exclude.xml")
 	copyIfFound("pmd.xml")
 }
