@@ -1,3 +1,9 @@
+## 0.5.8 (2024-12-08)
+
+### Bug Fixes
+
+-  copy sca files before check ([bae1c](https://github.com/tomasbjerre/java-convention-gradle-plugin/commit/bae1cda1e73c10d) Tomas Bjerre)  
+
 ## 0.5.7 (2024-11-09)
 
 ### Bug Fixes
