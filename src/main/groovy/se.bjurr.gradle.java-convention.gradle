@@ -122,7 +122,7 @@ if (getEffectiveJavaConventions().mainClass != '') {
 jar {
 	manifest {
 		attributes 'name': project.name
-		attributes 'Automatic-Module-Name': project.group + " " + project.name
+		attributes 'Automatic-Module-Name': project.group + "." + project.name
 	}
 }
 
