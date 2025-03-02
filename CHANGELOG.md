@@ -1,3 +1,9 @@
+## 0.6.1 (2025-03-02)
+
+### Bug Fixes
+
+-  adding Automatic-Module-Name ([49f3b](https://github.com/tomasbjerre/java-convention-gradle-plugin/commit/49f3b16e49f8f96) Tomas Bjerre)  
+
 ## 0.6.0 (2025-03-02)
 
 ### Features
