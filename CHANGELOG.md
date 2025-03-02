@@ -1,3 +1,9 @@
+## 0.6.0 (2025-03-02)
+
+### Features
+
+-  adding Automatic-Module-Name ([eceb2](https://github.com/tomasbjerre/java-convention-gradle-plugin/commit/eceb201d850d866) Tomas Bjerre)  
+
 ## 0.5.10 (2024-12-08)
 
 ### Bug Fixes
