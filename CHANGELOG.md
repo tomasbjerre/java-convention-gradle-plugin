@@ -1,3 +1,8 @@
+## 0.6.2 (2025-08-11)
+
+### Dependency updates
+
+- deps ([3ca51](https://github.com/tomasbjerre/java-convention-gradle-plugin/commit/3ca51ad58a020fb) Tomas Bjerre)  
 ## 0.6.1 (2025-03-02)
 
 ### Bug Fixes
